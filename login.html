@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Login</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Segoe UI", sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, #ff6a00, #ee0979, #00c9ff, #92fe9d);
+      background-size: 400% 400%;
+      animation: bgMove 10s ease infinite;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @keyframes bgMove {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-container {
+      background: #1f1c2c;
+      border-radius: 20px;
+      padding: 40px 35px;
+      width: 350px;
+      position: relative;
+      color: white;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1), 0 10px 40px rgba(0, 0, 0, 0.4);
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 28px;
+      background: linear-gradient(45deg, #ff6a00, #ee0979);
+     -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
+    }
+    input {
+      width: 100%;
+      padding: 14px 16px;
+      margin: 12px 0;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      background: #2d2a40;
+      color: #fff;
+      transition: 0.4s ease;
+      box-shadow: inset 0 0 0 2px transparent;
+    }
+
+    input:focus {
+      outline: none;
+      background: #353252;
+      box-shadow: inset 0 0 0 2px #00f2fe;
+      transform: scale(1.03);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 15px;
+      background-color: #ccc;
+      background-size: 300%;
+      border: none;
+      color: black;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: 0.4s ease;
+      animation: pulse 2s infinite alternate;
+    }
+
+    @keyframes pulse {
+      from {
+        transform: scale(1);
+        box-shadow: 0 0 10px #ee0979;
+      }
+      to {
+        transform: scale(1.05);
+        box-shadow: 0 0 20px #00f2fe;
+      }
+    }
+
+    button:hover {
+      animation: none;
+      background-position: right center;
+     background-color: #00c9ff;
+      transform: translateY(-2px);
+    }
+
+    p {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 14px;
+      color: #ccc;
+    }
+
+    a {
+      color: #00c9ff;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    a:hover {
+      color: #fff;
+      text-shadow: 0 0 5px #00c9ff;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 400px) {
+      .form-container {
+        width: 90%;
+        padding: 30px 20px;
+      }
+
+      h2 {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <input type="text" id="loginUsername" placeholder="Username" required />
+      <input type="password" id="loginPassword" placeholder="Password" required />
+      <button type="submit">Login</button>
+    </form>
+    <p>New user? <a href="register.html">Register here</a></p>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+</html>

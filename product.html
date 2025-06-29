@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Product Details - MyStore</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      margin: 0; padding: 0;
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .header, .footer {
+      background-color: #007bff;
+      color: white;
+      padding: 12px 20px;
+      text-align: center;
+    }
+    .header a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      margin-left: 20px;
+    }
+    main.product-container {
+      flex: 1;
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 30px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: flex-start;
+    }
+    .product-image {
+      flex: 1 1 250px;
+      max-width: 300px;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .product-image img {
+      width: 100%;
+      border-radius: 8px;
+      object-fit: contain;
+    }
+    .product-details {
+      flex: 1 1 350px;
+    }
+    .product-details h2 {
+      margin-top: 0;
+      color: #333;
+    }
+    .product-details p {
+      margin: 10px 0;
+      color: #555;
+      font-size: 1rem;
+    }
+    .product-details .price {
+      font-weight: 700;
+      font-size: 1.4rem;
+      margin: 15px 0;
+      color: #007bff;
+    }
+    .product-details .stock {
+      font-style: italic;
+      color: #666;
+      margin-bottom: 20px;
+    }
+    .product-details button {
+      padding: 12px 20px;
+      margin-right: 15px;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 5px;
+      cursor: pointer;
+      border: none;
+      color: white;
+      transition: background-color 0.3s ease;
+    }
+    .btn-add-cart {
+      background-color: #28a745;
+    }
+    .btn-add-cart:hover {
+      background-color: #218838;
+    }
+    .btn-buy-now {
+      background-color: #007bff;
+    }
+    .btn-buy-now:hover {
+      background-color: #0056b3;
+    }
+    #loadingMsg, #errorMsg {
+      text-align: center;
+      font-weight: 600;
+      margin-top: 50px;
+      color: #888;
+    }
+    #errorMsg {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🛍️ MyStore</div>
+    <a href="index.html">🏠 Home</a>
+  </header>
+
+  <main class="product-container">
+    <div id="loadingMsg">Loading product details...</div>
+    <div id="errorMsg" style="display:none;"></div>
+
+    <div class="product-image" style="display:none;">
+      <img id="productImage" src="" alt="Product Image" />
+    </div>
+    <div class="product-details" style="display:none;">
+      <h2 id="productName"></h2>
+      <p><strong>Category:</strong> <span id="productCategory"></span></p>
+      <p class="price" id="productPrice"></p>
+      <p class="stock" id="productStock"></p>
+      <p id="productDescription"></p>
+      <button class="btn-add-cart" id="addToCartBtn">Add to Cart</button>
+      <button class="btn-buy-now" id="buyNowBtn">Buy Now</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 MyStore. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const PRODUCT_API = 'https://6826de9b397e48c913178784.mockapi.io/products/products';
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get('productId');
+      const loadingMsg = document.getElementById('loadingMsg');
+      const errorMsg = document.getElementById('errorMsg');
+      const productImageDiv = document.querySelector('.product-image');
+      const productDetailsDiv = document.querySelector('.product-details');
+
+      if (!productId) {
+        loadingMsg.style.display = 'none';
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = "Product ID missing in URL.";
+        return;
+      }
+
+      try {
+        const res = await fetch(PRODUCT_API + '/' + productId);
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        const product = await res.json();
+
+        loadingMsg.style.display = 'none';
+
+        // Fill product info
+        document.getElementById('productImage').src = product.image || '';
+        document.getElementById('productImage').alt = product.name || 'Product Image';
+        document.getElementById('productName').textContent = product.name || 'Unnamed Product';
+        document.getElementById('productCategory').textContent = product.category || 'Unknown';
+        document.getElementById('productPrice').textContent = `₹${product.price || 'N/A'}`;
+        document.getElementById('productStock').textContent = `Stock: ${product.stock || '0'}`;
+        document.getElementById('productDescription').textContent = product.description || '';
+
+        productImageDiv.style.display = 'block';
+        productDetailsDiv.style.display = 'block';
+
+        // Add to Cart button
+        document.getElementById('addToCartBtn').onclick = () => {
+          let cart = JSON.parse(localStorage.getItem('cart')) || [];
+          cart.push(product.id);
+          localStorage.setItem('cart', JSON.stringify(cart));
+          alert('Added to cart!');
+        };
+
+        // Buy Now button
+        document.getElementById('buyNowBtn').onclick = () => {
+          const user = JSON.parse(localStorage.getItem("user"));
+          if (!user) {
+            alert("Please login first!");
+            window.location.href = "login.html";
+            return;
+          }
+          // Redirect to order page with product info in query params
+          window.location.href = `order.html?productId=${product.id}&productName=${encodeURIComponent(product.name)}&productPrice=${product.price}`;
+        };
+      } catch (error) {
+        loadingMsg.style.display = 'none';
+        errorMsg.style.display = 'block';
+        errorMsg.textContent = "Failed to load product details. Please try again.";
+        console.error('Error fetching product:', error);
+      }
+    });
+  </script>
+</body>
+</html>

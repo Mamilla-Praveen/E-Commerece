@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Your Cart</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+  }
+
+  .header {
+    background-color: #2e8b57;
+    color: white;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+
+  .header .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  .header .header-actions {
+    display: flex;
+    gap: 10px;
+  }
+
+  .header .header-actions button {
+    background-color: white;
+    color: #2e8b57;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+
+  .header .header-actions button:hover {
+    background-color: #f0f0f0;
+  }
+
+  .cart-section {
+    padding: 30px 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+
+  .cart-item {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease;
+  }
+
+  .cart-item:hover {
+    transform: translateY(-5px);
+  }
+
+  .cart-item h4 {
+    margin: 0 0 8px;
+    font-size: 1.1rem;
+    color: #2e8b57;
+  }
+
+  .cart-item p {
+    margin: 5px 0;
+    font-size: 0.95rem;
+  }
+
+  .cart-total {
+    text-align: right;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 30px;
+    padding-right: 10px;
+    color: #2e8b57;
+  }
+
+  @media (max-width: 600px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header .header-actions {
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+      margin-top: 10px;
+    }
+  }
+</style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🛒 My Cart</div>
+    <div class="header-actions">
+      <button onclick="goHome()">🏠 Home</button>
+      <button onclick="checkout()">🧾 Checkout</button>
+    </div>
+  </header>
+
+  <section class="cart-section">
+    <div id="cart-container" class="product-grid"></div>
+  </section>
+
+  <script src="js/cart.js"></script>
+  <script>
+    function goHome() {
+      window.location.href = "index.html";
+    }
+  </script>
+</body>
+</html>

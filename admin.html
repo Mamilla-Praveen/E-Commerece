@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="header">
+    <div class="logo">🔧 Admin Panel</div>
+    <button onclick="logout()">Logout</button>
+  </header>
+
+  <section class="admin-section">
+    <h2>📦 Add New Product</h2>
+    <form id="addProductForm">
+      <input type="text" placeholder="Name" id="name" required />
+      <input type="text" placeholder="Category" id="category" required />
+      <input type="number" placeholder="Price" id="price" required />
+      <input type="text" placeholder="Image URL" id="image" required />
+      <textarea placeholder="Description" id="description"></textarea>
+      <input type="number" placeholder="Stock" id="stock" />
+      <button type="submit">Add Product</button>
+    </form>
+  </section>
+
+  <section class="admin-section">
+    <h2>📋 All Products</h2>
+    <div id="admin-product-list" class="product-grid"></div>
+  </section>
+
+  <section class="admin-section">
+    <h2>📦 Orders</h2>
+    <div id="order-list" class="order-grid"></div>
+  </section>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>

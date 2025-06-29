@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Billing Page</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f7f7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .order-summary {
+      max-width: 700px;
+      background: #fff;
+      margin: 30px auto;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .order-summary h3 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    .product-list {
+      margin-bottom: 25px;
+    }
+
+    .product-item {
+      display: flex;
+      justify-content: space-between;
+      background-color: #f1f1f1;
+      padding: 12px 15px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+
+    .product-item strong {
+      color: #333;
+    }
+
+    #totalAmount {
+      text-align: right;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #2e8b57;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    form input, form textarea {
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+
+    form button {
+      background-color: #2e8b57;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+      background-color: #256f47;
+    }
+
+    .home-link {
+      display: block;
+      text-align: center;
+      margin-top: 15px;
+      text-decoration: none;
+      color: #2e8b57;
+      font-weight: bold;
+    }
+
+    .home-link:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .order-summary {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      .product-item {
+        flex-direction: column;
+        gap: 5px;
+      }
+
+      #totalAmount {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="order-summary">
+    <h3>Order Summary</h3>
+    <div class="product-list" id="productList"></div>
+    <h4 id="totalAmount"></h4>
+
+    <form id="billingForm">
+      <input type="text" id="name" placeholder="Your Name" required />
+      <textarea id="address" placeholder="Shipping Address" required></textarea>
+      <input type="text" id="phone" placeholder="Phone Number" required />
+      <button type="submit">Place Order</button>
+    </form>
+
+    <a href="index.html" class="home-link">← Back to Home</a>
+  </div>
+
+  <script>
+    const ORDER_API = "https://6826de9b397e48c913178784.mockapi.io/products/orders";
+    const cartItems = JSON.parse(localStorage.getItem("cartForCheckout")) || [];
+    const total = new URLSearchParams(window.location.search).get("total");
+
+    const listDiv = document.getElementById("productList");
+    const totalElem = document.getElementById("totalAmount");
+
+    cartItems.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "product-item";
+      div.innerHTML = `<strong>${item.name}</strong> <span>₹${item.price}</span>`;
+      listDiv.appendChild(div);
+    });
+
+    totalElem.textContent = "Total: ₹" + total;
+
+    document.getElementById("billingForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const phone = document.getElementById("phone").value;
+
+      for (let item of cartItems) {
+        const order = {
+          productId: item.id,
+          productName: item.name,
+          price: item.price,
+          name,
+          address,
+          phone,
+          status: "pending",
+          createdAt: new Date().toISOString()
+        };
+
+        await fetch(ORDER_API, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(order)
+        });
+      }
+
+      localStorage.removeItem("cart");
+      localStorage.removeItem("cartForCheckout");
+
+      alert("Order placed successfully!");
+      window.location.href = "index.html";
+    });
+  </script>
+</body>
+</html>

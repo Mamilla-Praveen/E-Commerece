@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>E-Commerce Homepage</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="headall"></div>
+    <div class="logo" style="display: flex;flex:row;gap:10px;"> 
+      <img src="images/gradious-logotext-2-removebg-preview.png" style="height: 40px;">
+      <h2>Gradious Store</h2></div>
+    <input type="text" id="searchBar" placeholder="Search products..." />
+    <div class="header-actions">
+      <span id="welcomeMessage"></span>
+      
+      <button id="logoutBtn">Logout</button>
+      <a href="cart.html">🛒 Cart</a>
+      
+      </div>
+    </div>
+  </header>
+
+  <!-- Carousel -->
+  <section class="carousel">
+    <div class="slides">
+      <img src="https://img0-placeit-net.s3-accelerate.amazonaws.com/uploads/stage/stage_image/9112/optimized_product_thumb_simple-facebook-ad-template-facebook-ad-maker-for-t-shirts.jpg" class="slide active" />
+      <img src="https://images.all-free-download.com/images/graphiclarge/wednesday_watch_sale_banner_templates_modern_realistic_dark_contrast_design_6923105.jpg" class="slide" />
+      <img src="https://m.media-amazon.com/images/S/aplus-media-library-service-media/78fea918-a2fb-4253-83b3-f9ac63475c3b.__CR0,0,970,300_PT0_SX970_V1___.jpg" class="slide" />
+      <img src="https://www.latestkurtidesigns.com/wp-content/uploads/2020/10/fabulous-kurtis-to-kickstart-festive-season.jpeg" class="slide" />
+    </div>
+  </section>
+  <section class="hero">
+  <div class="hero-content">
+    <h1>Discover Your Style</h1>
+    <p>Shop the latest trends with exclusive deals - just for you.</p>
+    <a href="#product-list" class="btn btn-primary">Shop Now</a>
+  </div>
+</section>
+
+
+  <!-- Offers -->
+  <section class="offers">
+    <h2 class="offerhead">🔥 Special Offers</h2>
+    <!-- <div class="offer">
+      <div class="sub-offer">
+        <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/t-shirt-offer-ads-design-template-4c94b96d6d741dca6db3e1624b595511_screen.jpg?ts=1737630894">
+      </div>
+      <div class="sub-offer">
+        <div class="sub-sub-offer"><img src="https://i.pinimg.com/736x/2b/1b/70/2b1b701c4e9821287aa88bbed6cccbb1.jpg"></div>
+        <div class="sub-sub-offer"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/sports-shoes-ads-design-template-d1d360339b7624bdc0ac05612a40dead_screen.jpg?ts=1660294141"></div>
+      </div>
+    </div> -->
+    <div class="offer">
+  <div class="left-image">
+    <img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/t-shirt-offer-ads-design-template-4c94b96d6d741dca6db3e1624b595511_screen.jpg?ts=1737630894" alt="Offer 1">
+  </div>
+  <div class="right-images">
+    <div class="sub-sub-offer"><img src="https://i.pinimg.com/736x/2b/1b/70/2b1b701c4e9821287aa88bbed6cccbb1.jpg" alt="Sub offer 1"></div>
+    <div class="sub-sub-offer"><img src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/sports-shoes-ads-design-template-d1d360339b7624bdc0ac05612a40dead_screen.jpg?ts=1660294141" alt="Sub offer 2"></div>
+  </div>
+</div>
+
+    <div id="offers-container" class="product-grid"></div>
+  </section>
+  <section class="best-sellers">
+  <h2>🔥 Best Sellers</h2>
+  <div class="product-grid" id="best-sellers-grid"></div>
+</section>
+
+
+  <!-- Categories -->
+  <section class="categories">
+    <h2>🧩 Browse Categories</h2>
+    <div class="category-list">
+      <button class="category-btn" data-category="Watches">Watches</button>
+      <button class="category-btn" data-category="Footwear">Footwear</button>
+      <button class="category-btn" data-category="Shirts">Shirts</button>
+      <button class="category-btn" data-category="T-Shirts">T-Shirts</button>
+      <button class="category-btn" data-category="Pants">Pants</button>
+      <button class="category-btn" data-category="Trousers">Trousers</button>
+      <button class="category-btn" data-category="Shorts">Shorts</button>
+      <button class="category-btn" data-category="Sportswear">Sportswear</button>
+    </div>
+    <div id="product-list" class="product-grid"></div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>&copy; 2025 MyStore. All rights reserved.</p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
